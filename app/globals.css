@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+/* Placeholder brand tokens; swap the values once colors and font are decided. */
+@theme {
+  --color-primary: #1d4ed8;
+  --color-secondary: #0f172a;
+  --color-accent: #f59e0b;
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+  --color-muted: #64748b;
+}
+
+@theme inline {
+  --font-sans: var(--font-brand);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), sans-serif;
+}

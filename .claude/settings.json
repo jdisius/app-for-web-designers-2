@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Edit(./lib/database.types.ts)",
+      "Write(./lib/database.types.ts)"
+    ],
+    "ask": [
+      "Bash(npx supabase db push*)",
+      "Bash(git push*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          { "type": "command", "command": "node .claude/hooks/guard-edit.mjs" }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "node .claude/hooks/guard-bash.mjs" }
+        ]
+      }
+    ]
+  }
+}
