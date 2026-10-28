@@ -40,7 +40,7 @@ export default async function ProfilePage() {
               />
             ))}
           </div>
-          <PortfolioUploader />
+          <PortfolioUploader userId={user.id} />
         </section>
       )}
 

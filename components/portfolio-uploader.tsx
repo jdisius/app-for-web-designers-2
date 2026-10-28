@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { addPortfolioItem } from "@/app/actions/portfolio";
 import { ImageError, uploadImage } from "@/lib/images";
 
-export function PortfolioUploader() {
+export function PortfolioUploader({ userId }: { userId: string }) {
   const router = useRouter();
   const [status, setStatus] = useState<string>();
   const [busy, setBusy] = useState(false);
@@ -19,9 +19,10 @@ export function PortfolioUploader() {
 
     for (const file of files) {
       try {
-        const result = await addPortfolioItem(await uploadImage("portfolio", file));
+        const result = await addPortfolioItem(await uploadImage("portfolio", userId, file));
         if (result.error) throw new ImageError(result.error);
       } catch (e) {
+        console.error("portfolio upload failed", e);
         setStatus(e instanceof ImageError ? e.message : "Obrázek se nepodařilo nahrát. Zkuste to prosím znovu.");
         break;
       }

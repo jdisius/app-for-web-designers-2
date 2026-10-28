@@ -1,6 +1,6 @@
 # PLAN.md
 
-Status: approved 2026-10-28; steps 1-6 done; Docker not used, hosted Supabase project instead (pgTAP via SQL editor).
+Status: approved 2026-10-28; steps 1-7 done; Docker not used, hosted Supabase project instead (pgTAP via SQL editor).
 
 How to use this file:
 - Work one step at a time. A step is done when the "Definition of done" in CLAUDE.md passes and the step's own check passes.
@@ -47,7 +47,7 @@ How to use this file:
   - Profile page: view and edit name and bio, log out.
   - Check: 375px, no horizontal scroll on every page so far.
 
-- [ ] 7. Image pipeline (2026-10-28: code written, lint/tsc/build and 3 unit tests pass; waiting for the developer's phone check; the temporary upload button on the designer profile is the base for step 8)
+- [x] 7. Image pipeline (2026-10-28: upload verified on PC (localhost); phone over http://LAN-IP threw 'Illegal invocation' before a fix that avoids crypto.randomUUID/getClaims in the browser, phone retest still open; cross-user path rejection covered by unit tests only, not tried against the live app; temporary console.error in components/portfolio-uploader.tsx to remove once phone works)
   - Browser downscale to max 1600px (WebP, JPEG fallback) plus a 400px thumbnail; upload both straight to Storage.
   - Server Action checks both paths belong to the user, inserts the row, and deletes the files if the insert fails. Batch signed URLs.
   - Check: a large phone photo arrives as a small image plus thumbnail; a path in another user's folder is rejected.

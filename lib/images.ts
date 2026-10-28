@@ -8,6 +8,15 @@ const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
 export class ImageError extends Error {}
 
+// crypto.randomUUID() only exists in secure contexts (HTTPS/localhost), not on http://<LAN ip> during phone testing.
+function uuid() {
+  const b = crypto.getRandomValues(new Uint8Array(16));
+  b[6] = (b[6] & 0x0f) | 0x40;
+  b[8] = (b[8] & 0x3f) | 0x80;
+  const h = Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
+  return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+}
+
 const toBlob = (canvas: HTMLCanvasElement, type: string) =>
   new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, type, 0.85));
 
@@ -34,7 +43,7 @@ async function encode(bitmap: ImageBitmap) {
 }
 
 // Uploads the image and its thumbnail; returns the image path (the thumbnail path is derived from it).
-export async function uploadImage(bucket: "portfolio" | "briefs", file: File) {
+export async function uploadImage(bucket: "portfolio" | "briefs", userId: string, file: File) {
   if (!ALLOWED_TYPES.includes(file.type)) throw new ImageError("Podporované jsou jen soubory JPG, PNG a WebP.");
 
   const bitmap = await createImageBitmap(file).catch(() => {
@@ -43,13 +52,8 @@ export async function uploadImage(bucket: "portfolio" | "briefs", file: File) {
   const { full, thumb, ext } = await encode(bitmap);
   bitmap.close();
 
-  const supabase = createClient();
-  const { data } = await supabase.auth.getClaims();
-  const userId = data?.claims.sub;
-  if (!userId) throw new ImageError("Nejste přihlášeni.");
-
-  const path = `${userId}/${crypto.randomUUID()}.${ext}`;
-  const storage = supabase.storage.from(bucket);
+  const path = `${userId}/${uuid()}.${ext}`;
+  const storage = createClient().storage.from(bucket);
   const fullUpload = await storage.upload(path, full, { contentType: full.type, upsert: false });
   if (fullUpload.error) throw new ImageError("Obrázek se nepodařilo nahrát.");
 
