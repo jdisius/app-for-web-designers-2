@@ -252,7 +252,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      select_designer: {
+        Args: { p_brief_id: string; p_designer_id: string }
+        Returns: string
+      }
     }
     Enums: {
       brief_status: "open" | "taken"

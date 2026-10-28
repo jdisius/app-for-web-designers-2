@@ -1,6 +1,6 @@
 # PLAN.md
 
-Status: approved 2026-10-28; steps 1-2 done; Docker not used, hosted Supabase project instead (pgTAP via SQL editor).
+Status: approved 2026-10-28; steps 1-3 done; Docker not used, hosted Supabase project instead (pgTAP via SQL editor).
 
 How to use this file:
 - Work one step at a time. A step is done when the "Definition of done" in CLAUDE.md passes and the step's own check passes.
@@ -27,7 +27,7 @@ How to use this file:
   - Sign-up trigger with role validation; role cannot change.
   - Check: pgTAP tests that a bad role fails sign-up, the role cannot be changed and bad values are rejected; `db reset` succeeds; DB types regenerated.
 
-- [ ] 3. Policies and selection RPC
+- [x] 3. Policies and selection RPC (2026-10-28: pushed, 27 pgTAP assertions passed in the SQL editor, types regenerated)
   - Helpers in the `private` schema (e.g. `is_brief_owner`, `has_liked_brief`), one policy per operation on every table.
   - `select_designer` RPC: security definer, row lock on the brief, checks from CLAUDE.md, execute for `authenticated` only.
   - Add `messages` to the `supabase_realtime` publication.
