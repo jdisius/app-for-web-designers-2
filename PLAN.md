@@ -47,7 +47,7 @@ How to use this file:
   - Profile page: view and edit name and bio, log out.
   - Check: 375px, no horizontal scroll on every page so far.
 
-- [ ] 7. Image pipeline
+- [ ] 7. Image pipeline (2026-10-28: code written, lint/tsc/build and 3 unit tests pass; waiting for the developer's phone check; the temporary upload button on the designer profile is the base for step 8)
   - Browser downscale to max 1600px (WebP, JPEG fallback) plus a 400px thumbnail; upload both straight to Storage.
   - Server Action checks both paths belong to the user, inserts the row, and deletes the files if the insert fails. Batch signed URLs.
   - Check: a large phone photo arrives as a small image plus thumbnail; a path in another user's folder is rejected.

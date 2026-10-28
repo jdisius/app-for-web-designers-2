@@ -28,6 +28,7 @@
 - Lint: `npm run lint` (the script runs `eslint .`)
 - Typecheck: `npx tsc --noEmit` (run after `npm run build` or `next typegen`, which generate the `LayoutProps` route types)
 - Build: `npm run build`
+- Unit tests (Node's built-in runner, `lib/*.test.mjs`): `npm test`
 - Start local Supabase (Docker must be running): `npx supabase start`; local URL and keys: `npx supabase status`
 - New migration: `npx supabase migration new <name>` (the file lands in supabase/migrations)
 - Re-apply all migrations and the seed locally: `npx supabase db reset`
@@ -38,6 +39,7 @@
 ## Folder structure
 - `app/` routes (App Router); `app/globals.css` holds the Tailwind `@theme` tokens.
 - `lib/supabase/` server and browser clients; `lib/database.types.ts` generated, never edited by hand.
+- `lib/images.ts` browser resize and upload; `lib/storage-paths.ts` path helpers shared with Server Actions.
 - `proxy.ts` (repo root) session refresh; `supabase/migrations`, `supabase/tests` (pgTAP).
 - `.claude/settings.json` and `.claude/hooks/` enforce the must-hold rules (no .env reads, no hardcoded colors, no secret keys in app code).
 
