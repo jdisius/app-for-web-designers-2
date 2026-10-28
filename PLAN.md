@@ -1,6 +1,6 @@
 # PLAN.md
 
-Status: approved 2026-10-28; step 1 done, step 2 in progress.
+Status: approved 2026-10-28; steps 1-2 done; Docker not used, hosted Supabase project instead (pgTAP via SQL editor).
 
 How to use this file:
 - Work one step at a time. A step is done when the "Definition of done" in CLAUDE.md passes and the step's own check passes.
@@ -21,7 +21,7 @@ How to use this file:
   - Replace "Commands" in CLAUDE.md with the real scripts and add "Folder structure".
   - Check: an empty page at 375px with no horizontal scroll.
 
-- [ ] 2. Schema migration (2026-10-28: migration 20261028153212_schema.sql and supabase/tests/01_schema.test.sql written but NOT verified: Docker is not installed or not running, so db reset, test db and type generation are still open)
+- [x] 2. Schema migration (2026-10-28: pushed to hosted project APP demo, types generated, 9 pgTAP tests passed in the SQL editor; `db reset` not run, no Docker)
   - Enums, the six tables, CHECKs (budget > 0, message body 1–1000), unique constraints, indexes on policy columns. `budget` is an integer (whole crowns).
   - Grants: column-level UPDATE on profiles (name, bio) and briefs (image_url, deadline, budget, description); swipes SELECT and INSERT only; no direct INSERT on selections; nothing to `anon`. RLS enabled on every table.
   - Sign-up trigger with role validation; role cannot change.
