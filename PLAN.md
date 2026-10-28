@@ -1,6 +1,6 @@
 # PLAN.md
 
-Status: approved 2026-10-28; steps 1-5 done; Docker not used, hosted Supabase project instead (pgTAP via SQL editor).
+Status: approved 2026-10-28; steps 1-6 done; Docker not used, hosted Supabase project instead (pgTAP via SQL editor).
 
 How to use this file:
 - Work one step at a time. A step is done when the "Definition of done" in CLAUDE.md passes and the step's own check passes.
@@ -42,7 +42,7 @@ How to use this file:
   - Role selection, sign-up (role from the first screen), login, logout, route guards by auth state and role with `getClaims()` on the server.
   - Check: each role lands on its main screen after sign-up; a customer opening a designer page is redirected, and the reverse.
 
-- [ ] 6. App shell and profile
+- [x] 6. App shell and profile (2026-10-28: checked by hand on phone, all pages OK; chats/designers are heading-only placeholders)
   - LOGO box, account icon, role-based bottom nav with safe-area padding.
   - Profile page: view and edit name and bio, log out.
   - Check: 375px, no horizontal scroll on every page so far.
