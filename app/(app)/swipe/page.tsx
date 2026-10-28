@@ -1,7 +1,7 @@
-import { requireRole } from "@/lib/auth";
+import { requireReadyDesigner } from "@/lib/auth";
 
 export default async function SwipePage() {
-  await requireRole("designer");
+  await requireReadyDesigner();
   return (
     <main className="px-4 py-4">
       <h1 className="text-2xl font-bold">Swipe</h1>

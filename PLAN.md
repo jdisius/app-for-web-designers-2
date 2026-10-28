@@ -52,7 +52,7 @@ How to use this file:
   - Server Action checks both paths belong to the user, inserts the row, and deletes the files if the insert fails. Batch signed URLs.
   - Check: a large phone photo arrives as a small image plus thumbnail; a path in another user's folder is rejected.
 
-- [ ] 8. Designer onboarding and portfolio
+- [ ] 8. Designer onboarding and portfolio (2026-10-29: code written, lint/tsc/build pass; waiting for the developer's check)
   - 3–6 uploads and the "Potvrzuji, že jde o moje vlastní dílo" checkbox; redirect back while fewer than 3 images.
   - Manage images on the profile page within 3–6; grid with a larger view.
   - Check: a designer with 2 images cannot reach Swipe; the server refuses going below 3 or above 6.

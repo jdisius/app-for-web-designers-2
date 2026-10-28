@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { PORTFOLIO_MIN } from "@/lib/portfolio";
 import type { Database } from "@/lib/database.types";
 
 export type Role = Database["public"]["Enums"]["user_role"];
@@ -22,5 +23,21 @@ export async function requireRole(role: Role) {
   const user = await getCurrentUser();
   if (!user) redirect("/");
   if (user.role !== role) redirect(homeFor(user.role));
+  return user;
+}
+
+export async function getPortfolioCount(userId: string) {
+  const supabase = await createClient();
+  const { count } = await supabase
+    .from("portfolio_items")
+    .select("id", { count: "exact", head: true })
+    .eq("designer_id", userId);
+  return count ?? 0;
+}
+
+// A designer with fewer than PORTFOLIO_MIN images is always sent back to onboarding.
+export async function requireReadyDesigner() {
+  const user = await requireRole("designer");
+  if ((await getPortfolioCount(user.id)) < PORTFOLIO_MIN) redirect("/onboarding");
   return user;
 }

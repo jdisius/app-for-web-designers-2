@@ -4,11 +4,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { addPortfolioItem } from "@/app/actions/portfolio";
 import { ImageError, uploadImage } from "@/lib/images";
+import { PORTFOLIO_MAX } from "@/lib/portfolio";
 
-export function PortfolioUploader({ userId }: { userId: string }) {
+export function PortfolioUploader({ userId, count }: { userId: string; count: number }) {
   const router = useRouter();
   const [status, setStatus] = useState<string>();
   const [busy, setBusy] = useState(false);
+  const full = count >= PORTFOLIO_MAX;
 
   async function onChange(event: React.ChangeEvent<HTMLInputElement>) {
     const input = event.currentTarget;
@@ -17,7 +19,10 @@ export function PortfolioUploader({ userId }: { userId: string }) {
     setBusy(true);
     setStatus(undefined);
 
-    for (const file of files) {
+    const room = PORTFOLIO_MAX - count;
+    if (files.length > room) setStatus(`Portfolio může mít nejvýše ${PORTFOLIO_MAX} obrázků.`);
+
+    for (const file of files.slice(0, room)) {
       try {
         const result = await addPortfolioItem(await uploadImage("portfolio", userId, file));
         if (result.error) throw new ImageError(result.error);
@@ -34,13 +39,17 @@ export function PortfolioUploader({ userId }: { userId: string }) {
 
   return (
     <div className="flex flex-col gap-2">
-      <label className="cursor-pointer rounded-full bg-primary px-6 py-3 text-center text-base font-bold text-background has-disabled:opacity-60">
-        {busy ? "Nahrávám…" : "Přidat obrázky"}
+      <label
+        className={`rounded-full bg-primary px-6 py-3 text-center text-base font-bold text-background ${
+          busy || full ? "opacity-60" : "cursor-pointer"
+        }`}
+      >
+        {busy ? "Nahrávám…" : full ? `Maximum ${PORTFOLIO_MAX} obrázků` : "Přidat obrázky"}
         <input
           type="file"
           accept="image/jpeg,image/png,image/webp"
           multiple
-          disabled={busy}
+          disabled={busy || full}
           onChange={onChange}
           className="sr-only"
         />
