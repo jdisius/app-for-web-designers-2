@@ -37,7 +37,7 @@ How to use this file:
   - `portfolio` and `briefs` buckets in a migration (5 MB, image/jpeg, image/png, image/webp) with folder-ownership policies.
   - Check: user B cannot upload into or delete from user A's folder.
 
-- [ ] 5. Supabase clients and auth
+- [ ] 5. Supabase clients and auth (2026-10-28: code written, lint/tsc/build pass; NOT verified: dev server fails with 'URL and Key are required', env var names in .env.local to be checked by the developer; role redirects and sign-up not yet tested)
   - `lib/supabase/server.ts`, `lib/supabase/client.ts`, `proxy.ts` session refresh.
   - Role selection, sign-up (role from the first screen), login, logout, route guards by auth state and role with `getClaims()` on the server.
   - Check: each role lands on its main screen after sign-up; a customer opening a designer page is redirected, and the reverse.
