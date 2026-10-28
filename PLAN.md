@@ -1,6 +1,6 @@
 # PLAN.md
 
-Status: approved 2026-10-28; steps 1-3 done; Docker not used, hosted Supabase project instead (pgTAP via SQL editor).
+Status: approved 2026-10-28; steps 1-4 done; Docker not used, hosted Supabase project instead (pgTAP via SQL editor).
 
 How to use this file:
 - Work one step at a time. A step is done when the "Definition of done" in CLAUDE.md passes and the step's own check passes.
@@ -33,7 +33,7 @@ How to use this file:
   - Add `messages` to the `supabase_realtime` publication.
   - Check: pgTAP with two designers and two customers; each is denied the others' data (0 rows, 0 changes or 42501). The RPC rejects a non-author, a taken brief and a designer who did not like the brief.
 
-- [ ] 4. Storage
+- [x] 4. Storage (2026-10-28: pushed, 8 pgTAP assertions passed; direct DELETE on storage.objects is blocked by Supabase, so cross-user delete is tested through the Storage API in step 7)
   - `portfolio` and `briefs` buckets in a migration (5 MB, image/jpeg, image/png, image/webp) with folder-ownership policies.
   - Check: user B cannot upload into or delete from user A's folder.
 
