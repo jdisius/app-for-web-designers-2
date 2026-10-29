@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "node --test lib/storage-paths.test.mjs"
+    "test": "node --test lib/*.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

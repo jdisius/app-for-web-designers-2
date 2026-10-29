@@ -1,5 +1,5 @@
 begin;
-select plan(27);
+select plan(29);
 
 create function pg_temp.act_as(p_uid text) returns void language sql as $$
   select set_config('request.jwt.claims', json_build_object('sub', p_uid, 'role', 'authenticated')::text, true),
@@ -23,7 +23,7 @@ insert into public.swipes (designer_id, brief_id, liked) values
 
 -- Designer d1
 select pg_temp.act_as('00000000-0000-0000-0000-0000000000d1');
-select is((select count(*) from public.briefs), 2::bigint, 'designer sees only open briefs');
+select is((select count(*) from public.briefs where id in ('00000000-0000-0000-0000-0000000000b1', '00000000-0000-0000-0000-0000000000b2', '00000000-0000-0000-0000-0000000000b3')), 2::bigint, 'designer sees only open briefs');
 select throws_ok(
   $$insert into public.swipes (designer_id, brief_id, liked)
     values ('00000000-0000-0000-0000-0000000000d2', '00000000-0000-0000-0000-0000000000b2', true)$$,
@@ -73,6 +73,12 @@ reset role;
 select pg_temp.act_as('00000000-0000-0000-0000-0000000000c1');
 select is((select count(*) from public.swipes where brief_id = '00000000-0000-0000-0000-0000000000b1'), 2::bigint,
   'customer sees likes on own brief');
+select lives_ok(
+  $$insert into public.briefs (id, customer_id, image_url, deadline, budget, description)
+    values ('00000000-0000-0000-0000-0000000000b4', '00000000-0000-0000-0000-0000000000c1', null, current_date, 100, 'bez fotky')$$,
+  'customer can create a brief without a photo');
+select is((select image_url from public.briefs where id = '00000000-0000-0000-0000-0000000000b4'), null,
+  'a brief without a photo is stored with a null image_url');
 select lives_ok(
   $$select public.select_designer('00000000-0000-0000-0000-0000000000b1', '00000000-0000-0000-0000-0000000000d1')$$,
   'author can select a designer who liked the brief');

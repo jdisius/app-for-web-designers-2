@@ -4,7 +4,7 @@
 
 ## Project
 - Demo web app for the Czech market, mobile-first: swipe-based marketplace connecting designers and customers.
-- Customers post briefs (reference photo, deadline, budget, short description).
+- Customers post briefs (optional reference photo, deadline, budget, short description).
 - Designers swipe briefs: right = interested, left = skip.
 - Customers never swipe: they see designers who liked their brief, review profile + portfolio, select one.
 - Selection creates a chat between customer and designer; other designers who liked the brief see "Zakázka obsazena".
@@ -112,7 +112,7 @@
   - Every protected page and Server Action also checks the user on the server with `getClaims()`; a redirect alone does not protect data.
 
 ## Designer side (nav: Swipe | Chats)
-- Swipe: cards with open briefs (photo, deadline, budget, description). Swipe right = like, left = skip, plus buttons for both.
+- Swipe: cards with open briefs (photo if there is one, deadline, budget, description). Swipe right = like, left = skip, plus buttons for both.
 - A brief already liked or skipped is never shown again.
 - Chats: list of chats with customers who selected this designer; tap opens the chat.
 - Chats tab also has a section "Moje zájmy": all liked briefs with their status.
@@ -120,7 +120,7 @@
 - Bio is edited on the profile page (not part of sign-up).
 
 ## Customer side (nav: + New brief | Designers | Chats)
-- New brief: form with reference photo upload, deadline (date, not in the past), budget (CZK), short description.
+- New brief: form with optional reference photo upload, deadline (date, not in the past), budget (CZK), short description.
   - Check "not in the past" in the Server Action against today's date in Europe/Prague. `z.coerce.number()` turns an empty budget into 0, so check for a non-empty value before coercing.
 - Below the form: the customer's existing briefs with status.
 - Designers: for each open brief, the designers who liked it.
@@ -149,12 +149,12 @@
 - The trigger accepts only designer or customer from sign-up metadata; any other value raises an error and sign-up fails.
   - Trigger function: `security definer set search_path = ''`, schema-qualified names, explicit `raise exception` for a bad role. The source of truth for role is `profiles.role`; never read it from `user_metadata`, which users can edit.
 - portfolio_items (id, designer_id, image_url, title optional, created_at)
-- briefs (id, customer_id, image_url, deadline, budget, description, status: open | taken, created_at)
+- briefs (id, customer_id, image_url (nullable: the photo is optional), deadline, budget, description, status: open | taken, created_at)
   - `budget` is an integer in whole crowns. The Server Action rounds a decimal entry to the nearest crown before saving, then checks it is still > 0 (decided 2026-10-28).
 - swipes (designer_id, brief_id, liked boolean, created_at), unique (designer_id, brief_id)
 - selections (id, brief_id unique, designer_id, created_at)
 - messages (id, selection_id, sender_id, body, created_at)
-- image_url stores the Storage object path; render images via signed URLs.
+- image_url stores the Storage object path (null for a brief without a photo); render images via signed URLs.
   - Sign many paths in one call with `createSignedUrls` (expiry is in seconds); never store signed URLs.
 - Back up app rules in the DB: enums for role/status, CHECK constraints (budget > 0, message body 1–1000 chars).
 - Selecting a designer is one Postgres function (RPC): insert selection + set brief to taken in a single transaction.

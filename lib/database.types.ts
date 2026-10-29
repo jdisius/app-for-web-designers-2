@@ -47,7 +47,7 @@ export type Database = {
           deadline: string
           description: string
           id: string
-          image_url: string
+          image_url: string | null
           status: Database["public"]["Enums"]["brief_status"]
         }
         Insert: {
@@ -57,7 +57,7 @@ export type Database = {
           deadline: string
           description: string
           id?: string
-          image_url: string
+          image_url?: string | null
           status?: Database["public"]["Enums"]["brief_status"]
         }
         Update: {
@@ -67,7 +67,7 @@ export type Database = {
           deadline?: string
           description?: string
           id?: string
-          image_url?: string
+          image_url?: string | null
           status?: Database["public"]["Enums"]["brief_status"]
         }
         Relationships: [
