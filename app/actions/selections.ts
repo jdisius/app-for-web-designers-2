@@ -28,5 +28,5 @@ export async function selectDesigner(briefId: string, designerId: string): Promi
 
   revalidatePath("/designers");
   revalidatePath("/briefs/new");
-  redirect("/chats"); // the chat page itself comes in step 12
+  redirect("/chats");
 }

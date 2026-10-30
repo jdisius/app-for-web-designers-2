@@ -70,7 +70,7 @@ How to use this file:
   - Per open brief, the designers who liked it (name, short bio, 3 thumbnails); full profile with portfolio grid; "Vybrat" calls the RPC, errors shown in Czech.
   - Check: after "Vybrat" the brief is taken and other designers who liked it see "Zakázka obsazena" in "Moje zájmy".
 
-- [ ] 12. Chats
+- [x] 12. Chats (2026-10-30: checked by the developer with three accounts, works)
   - Chat lists for both roles, the "Moje zájmy" section, chat page with live messages and the input fixed at the bottom.
   - Check: two sessions exchange messages live; a third user can neither read nor receive them.
 
