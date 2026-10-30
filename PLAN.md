@@ -61,7 +61,7 @@ How to use this file:
   - Form with optional photo, deadline, budget, description using the shared Zod schema; the customer's briefs with status below it. Migration makes `briefs.image_url` nullable (decided 2026-10-29).
   - Check: a past date (Prague time) and an empty budget get Czech errors; 1500.6 is saved as 1501; amounts show "1 500 Kč"; a brief with and without a photo both save and list.
 
-- [ ] 10. Swipe (designer)
+- [x] 10. Swipe (designer) (2026-10-30: checked by the developer on phone, works)
   - Card layout without a photo for briefs that have none.
   - Motion card deck with drag and buttons; only open briefs this designer has not swiped; writes swipes.
   - Check: a swiped brief never returns after reload; drag and buttons both work at 375px.
