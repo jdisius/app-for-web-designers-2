@@ -27,7 +27,6 @@ export function PortfolioUploader({ userId, count }: { userId: string; count: nu
         const result = await addPortfolioItem(await uploadImage("portfolio", userId, file));
         if (result.error) throw new ImageError(result.error);
       } catch (e) {
-        console.error("portfolio upload failed", e);
         setStatus(e instanceof ImageError ? e.message : "Obrázek se nepodařilo nahrát. Zkuste to prosím znovu.");
         break;
       }

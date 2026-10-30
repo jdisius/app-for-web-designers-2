@@ -74,6 +74,6 @@ How to use this file:
   - Chat lists for both roles, the "Moje zájmy" section, chat page with live messages and the input fixed at the bottom.
   - Check: two sessions exchange messages live; a third user can neither read nor receive them.
 
-- [ ] 13. Final pass and deploy
+- [ ] 13. Final pass and deploy (2026-10-30: temporary console.error removed, Czech string list and 375px checklist handed over; waiting for the hand check, Vercel env vars and deploy approval)
   - 375px check of every page; list all Czech strings added along the way for review.
   - Vercel environment variables (set by the developer); `npx supabase db push` and deploy only after approval.
