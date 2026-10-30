@@ -66,7 +66,7 @@ How to use this file:
   - Motion card deck with drag and buttons; only open briefs this designer has not swiped; writes swipes.
   - Check: a swiped brief never returns after reload; drag and buttons both work at 375px.
 
-- [ ] 11. Designers tab and "Vybrat" (customer)
+- [x] 11. Designers tab and "Vybrat" (customer) (2026-10-30: checked by the developer, works; Vybrat sits on the full profile; "Zakázka obsazena" display comes with Moje zájmy in step 12)
   - Per open brief, the designers who liked it (name, short bio, 3 thumbnails); full profile with portfolio grid; "Vybrat" calls the RPC, errors shown in Czech.
   - Check: after "Vybrat" the brief is taken and other designers who liked it see "Zakázka obsazena" in "Moje zájmy".
 
