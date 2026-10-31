@@ -1,6 +1,6 @@
 # PLAN.md
 
-Status: approved 2026-10-28; steps 1-7 done; Docker not used, hosted Supabase project instead (pgTAP via SQL editor).
+Status: approved 2026-10-28; all 13 steps done; Docker not used, hosted Supabase project instead (pgTAP via SQL editor).
 
 How to use this file:
 - Work one step at a time. A step is done when the "Definition of done" in CLAUDE.md passes and the step's own check passes.
@@ -74,6 +74,6 @@ How to use this file:
   - Chat lists for both roles, the "Moje zájmy" section, chat page with live messages and the input fixed at the bottom.
   - Check: two sessions exchange messages live; a third user can neither read nor receive them.
 
-- [ ] 13. Final pass and deploy (2026-10-30: temporary console.error removed, Czech string list and 375px checklist handed over; waiting for the hand check, Vercel env vars and deploy approval)
+- [x] 13. Final pass and deploy (2026-10-31: all pages checked by the developer, works; Vercel already connected to Supabase by the developer; code pushed to GitHub; labels left as they are)
   - 375px check of every page; list all Czech strings added along the way for review.
   - Vercel environment variables (set by the developer); `npx supabase db push` and deploy only after approval.
