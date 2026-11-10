@@ -63,7 +63,7 @@ export function ChatView({ selectionId, userId, initial }: { selectionId: string
           <li
             key={m.id}
             className={`max-w-[80%] whitespace-pre-wrap break-words rounded-2xl px-4 py-2 ${
-              m.sender_id === userId ? "self-end bg-primary text-background" : "self-start border border-muted/40"
+              m.sender_id === userId ? "self-end rounded-br-md bg-primary text-background" : "self-start rounded-bl-md bg-surface"
             }`}
           >
             {m.body}
@@ -74,7 +74,7 @@ export function ChatView({ selectionId, userId, initial }: { selectionId: string
 
       <form
         onSubmit={onSubmit}
-        className="fixed inset-x-0 bottom-0 z-10 border-t border-muted/30 bg-background pb-[env(safe-area-inset-bottom)]"
+        className="fixed inset-x-0 bottom-0 z-10 border-t border-muted/20 bg-surface pb-[env(safe-area-inset-bottom)]"
       >
         <div className="mx-auto flex max-w-md flex-col gap-1 px-4 py-3">
           {error && <p role="alert" className="text-sm font-semibold text-accent">{error}</p>}
@@ -85,7 +85,7 @@ export function ChatView({ selectionId, userId, initial }: { selectionId: string
               maxLength={1000}
               aria-label="Zpráva"
               placeholder="Napište zprávu…"
-              className="min-w-0 flex-1 rounded-full border border-muted/40 px-4 py-3 text-base"
+              className="min-w-0 flex-1 rounded-full border border-muted/30 bg-background px-4 py-3 text-base placeholder:text-muted"
             />
             <button disabled={pending} className={buttonClass}>Odeslat</button>
           </div>

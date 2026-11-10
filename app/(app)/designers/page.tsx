@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Avatar } from "@/components/avatar";
+import { EmptyState } from "@/components/empty-state";
 import { requireRole } from "@/lib/auth";
 import { formatCzk, formatDate } from "@/lib/format";
 import { signedUrls } from "@/lib/signed-urls";
@@ -41,7 +43,7 @@ export default async function DesignersPage() {
   return (
     <main className="flex flex-col gap-6 px-4 py-4">
       <h1 className="text-2xl font-bold">Designéři</h1>
-      {briefs?.length === 0 && <p className="text-muted">Nemáte žádnou otevřenou zakázku.</p>}
+      {briefs?.length === 0 && <EmptyState>Nemáte žádnou otevřenou zakázku.</EmptyState>}
 
       {briefs?.map((brief) => {
         const designers = (likes ?? []).filter((l) => l.brief_id === brief.id).flatMap((l) => byId.get(l.designer_id) ?? []);
@@ -56,10 +58,13 @@ export default async function DesignersPage() {
               <Link
                 key={d.id}
                 href={`/designers/${d.id}?brief=${brief.id}`}
-                className="flex flex-col gap-2 rounded-2xl border border-muted/40 p-3"
+                className="flex flex-col gap-3 rounded-2xl bg-surface p-3"
               >
-                <p className="font-bold">{d.name}</p>
-                {d.bio && <p className="line-clamp-2 break-words text-sm">{d.bio}</p>}
+                <div className="flex items-center gap-3">
+                  <Avatar name={d.name} />
+                  <p className="min-w-0 truncate font-bold">{d.name}</p>
+                </div>
+                {d.bio && <p className="line-clamp-2 break-words text-sm text-muted">{d.bio}</p>}
                 <div className="grid grid-cols-3 gap-2">
                   {(thumbs.get(d.id) ?? []).map((path) => (
                     // eslint-disable-next-line @next/next/no-img-element -- signed Storage URLs, already resized in the browser

@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 
-const brandFont = Inter({
+const brandFont = Outfit({
   variable: "--font-brand",
   subsets: ["latin", "latin-ext"],
 });

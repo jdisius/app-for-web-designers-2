@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { addPortfolioItem } from "@/app/actions/portfolio";
+import { buttonClass } from "@/components/field";
 import { ImageError, uploadImage } from "@/lib/images";
 import { PORTFOLIO_MAX } from "@/lib/portfolio";
 
@@ -39,7 +40,7 @@ export function PortfolioUploader({ userId, count }: { userId: string; count: nu
   return (
     <div className="flex flex-col gap-2">
       <label
-        className={`rounded-full bg-primary px-6 py-3 text-center text-base font-bold text-background ${
+        className={`${buttonClass} has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-primary ${
           busy || full ? "opacity-60" : "cursor-pointer"
         }`}
       >

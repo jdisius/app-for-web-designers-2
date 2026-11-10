@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { deletePortfolioItem } from "@/app/actions/portfolio";
-import { buttonClass } from "@/components/field";
+import { buttonBase, secondaryButtonClass } from "@/components/field";
 
 type Item = { id: string; thumbUrl?: string; fullUrl?: string };
 
@@ -32,9 +32,9 @@ export function PortfolioGrid({ items, editable = false }: { items: Item[]; edit
     <>
       <div className="grid grid-cols-3 gap-2">
         {items.map((item) => (
-          <button key={item.id} type="button" aria-label="Zobrazit obrázek" onClick={() => setOpen(item)}>
+          <button key={item.id} type="button" aria-label="Zobrazit obrázek" onClick={() => setOpen(item)} className="rounded-xl">
             {/* eslint-disable-next-line @next/next/no-img-element -- signed Storage URLs, already resized in the browser */}
-            <img src={item.thumbUrl} alt="" className="aspect-square w-full rounded-lg object-cover" />
+            <img src={item.thumbUrl} alt="" className="aspect-square w-full rounded-xl bg-surface object-cover" />
           </button>
         ))}
       </div>
@@ -44,15 +44,15 @@ export function PortfolioGrid({ items, editable = false }: { items: Item[]; edit
           role="dialog"
           aria-modal="true"
           onClick={close}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-secondary/90 p-4 pb-[calc(1rem+env(safe-area-inset-bottom))]"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-background/95 p-4 pb-[calc(1rem+env(safe-area-inset-bottom))]"
         >
           {/* eslint-disable-next-line @next/next/no-img-element -- signed Storage URL */}
-          <img src={open.fullUrl} alt="" className="max-h-[70vh] max-w-full rounded-lg object-contain" />
-          {error && <p role="alert" className="rounded-lg bg-background px-3 py-2 text-sm font-semibold text-accent">{error}</p>}
+          <img src={open.fullUrl} alt="" className="max-h-[70vh] max-w-full rounded-2xl object-contain" />
+          {error && <p role="alert" className="rounded-lg bg-surface px-3 py-2 text-sm font-semibold text-accent">{error}</p>}
           <div className="flex gap-3" onClick={(e) => e.stopPropagation()}>
-            <button type="button" onClick={close} className={buttonClass}>Zavřít</button>
+            <button type="button" onClick={close} className={secondaryButtonClass}>Zavřít</button>
             {editable && (
-              <button type="button" disabled={pending} onClick={() => remove(open.id)} className={`${buttonClass} bg-accent`}>
+              <button type="button" disabled={pending} onClick={() => remove(open.id)} className={`${buttonBase} bg-accent text-background`}>
                 Smazat
               </button>
             )}

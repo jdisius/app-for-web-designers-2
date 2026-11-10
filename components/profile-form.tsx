@@ -2,19 +2,18 @@
 
 import { useActionState } from "react";
 import { updateProfile } from "@/app/actions/profile";
-import { buttonClass } from "@/components/field";
+import { buttonClass, inputClass, labelClass } from "@/components/field";
 
 export function ProfileForm({ name, bio }: { name: string; bio: string }) {
   const [state, action, pending] = useActionState(updateProfile, undefined);
-  const inputClass = "rounded-2xl border border-muted/40 px-4 py-3 text-base font-normal";
 
   return (
     <form action={action} className="flex flex-col gap-4">
-      <label className="flex flex-col gap-1 text-sm font-semibold">
+      <label className={labelClass}>
         Jméno
         <input name="name" defaultValue={name} required className={inputClass} />
       </label>
-      <label className="flex flex-col gap-1 text-sm font-semibold">
+      <label className={labelClass}>
         O mně
         <textarea name="bio" defaultValue={bio} rows={4} maxLength={500} className={inputClass} />
       </label>

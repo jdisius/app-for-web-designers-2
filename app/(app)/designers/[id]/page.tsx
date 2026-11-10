@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { z } from "zod";
+import { Avatar } from "@/components/avatar";
 import { PortfolioGrid } from "@/components/portfolio-grid";
 import { SelectDesignerButton } from "@/components/select-designer-button";
 import { requireRole } from "@/lib/auth";
@@ -30,8 +31,11 @@ export default async function DesignerProfilePage({ params, searchParams }: Page
 
   return (
     <main className="flex flex-col gap-6 px-4 py-4">
-      <h1 className="text-2xl font-bold">{designer.name}</h1>
-      {designer.bio && <p className="whitespace-pre-line break-words">{designer.bio}</p>}
+      <div className="flex items-center gap-4 rounded-2xl bg-primary/15 p-4">
+        <Avatar name={designer.name} className="size-16 text-2xl" />
+        <h1 className="min-w-0 break-words text-2xl font-bold">{designer.name}</h1>
+      </div>
+      {designer.bio && <p className="whitespace-pre-line break-words text-muted">{designer.bio}</p>}
       <PortfolioGrid items={items} />
       {openBrief && <SelectDesignerButton briefId={openBrief.id} designerId={ids.data.id} />}
     </main>

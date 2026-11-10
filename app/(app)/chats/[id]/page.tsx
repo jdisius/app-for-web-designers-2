@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { z } from "zod";
+import { Avatar } from "@/components/avatar";
 import { ChatView } from "@/components/chat-view";
 import { getCurrentUser, requireReadyDesigner } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
@@ -31,7 +32,8 @@ export default async function ChatPage({ params }: PageProps<"/chats/[id]">) {
   return (
     <main className="flex flex-col gap-4 py-4">
       <div className="flex items-center gap-3 px-4">
-        <Link href="/chats" className="text-sm font-bold text-primary">← Chaty</Link>
+        <Link href="/chats" className="py-2 text-sm font-bold text-primary">← Chaty</Link>
+        <Avatar name={other?.name ?? ""} className="size-9" />
         <h1 className="min-w-0 truncate text-xl font-bold">{other?.name ?? "Chat"}</h1>
       </div>
       <ChatView selectionId={selection.id} userId={user.id} initial={messages ?? []} />

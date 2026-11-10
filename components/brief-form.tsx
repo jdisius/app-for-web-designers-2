@@ -3,11 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createBrief } from "@/app/actions/briefs";
-import { buttonClass } from "@/components/field";
+import { buttonClass, inputClass, labelClass } from "@/components/field";
 import { ImageError, uploadImage } from "@/lib/images";
 import { briefSchema, todayPrague } from "@/lib/schemas/brief";
-
-const inputClass = "rounded-2xl border border-muted/40 px-4 py-3 text-base font-normal";
 
 export function BriefForm({ userId }: { userId: string }) {
   const router = useRouter();
@@ -46,19 +44,24 @@ export function BriefForm({ userId }: { userId: string }) {
 
   return (
     <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4">
-      <label className="flex flex-col gap-1 text-sm font-semibold">
+      <label className={labelClass}>
         Referenční fotka (nepovinná)
-        <input name="photo" type="file" accept="image/jpeg,image/png,image/webp" className={inputClass} />
+        <input
+          name="photo"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          className={`${inputClass} text-sm text-muted file:mr-3 file:rounded-full file:border-0 file:bg-secondary file:px-4 file:py-2 file:font-bold file:text-foreground`}
+        />
       </label>
-      <label className="flex flex-col gap-1 text-sm font-semibold">
+      <label className={labelClass}>
         Termín
         <input name="deadline" type="date" min={todayPrague()} className={inputClass} />
       </label>
-      <label className="flex flex-col gap-1 text-sm font-semibold">
+      <label className={labelClass}>
         Rozpočet (Kč)
         <input name="budget" type="text" inputMode="decimal" className={inputClass} />
       </label>
-      <label className="flex flex-col gap-1 text-sm font-semibold">
+      <label className={labelClass}>
         Krátký popis
         <textarea name="description" rows={4} maxLength={1000} className={inputClass} />
       </label>

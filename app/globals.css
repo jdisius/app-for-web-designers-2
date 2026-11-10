@@ -1,21 +1,32 @@
 @import "tailwindcss";
 
-/* Placeholder brand tokens; swap the values once colors and font are decided. */
+/* Brand tokens (dark theme). Swap the values here to rebrand; components only use the token names. */
 @theme {
-  --color-primary: #1d4ed8;
-  --color-secondary: #0f172a;
-  --color-accent: #f59e0b;
-  --color-background: #ffffff;
-  --color-foreground: #171717;
-  --color-muted: #64748b;
+  --color-primary: #a78bfa;
+  --color-secondary: #2a2833;
+  --color-accent: #fbbf24;
+  --color-background: #0e0d12;
+  --color-surface: #1b1a22;
+  --color-foreground: #f5f4f8;
+  --color-muted: #a3a0b5;
 }
 
 @theme inline {
   --font-sans: var(--font-brand);
 }
 
+/* Native controls (date picker, checkbox, scrollbars) follow the dark theme. */
+html {
+  color-scheme: dark;
+}
+
 body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans), sans-serif;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }

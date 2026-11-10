@@ -1,4 +1,6 @@
 import { BriefForm } from "@/components/brief-form";
+import { EmptyState } from "@/components/empty-state";
+import { pillClass } from "@/components/field";
 import { requireRole } from "@/lib/auth";
 import { formatCzk, formatDate } from "@/lib/format";
 import { signedUrls } from "@/lib/signed-urls";
@@ -22,18 +24,22 @@ export default async function NewBriefPage() {
 
       <section className="flex flex-col gap-3">
         <h2 className="text-xl font-bold">Moje zakázky</h2>
-        {briefs?.length === 0 && <p className="text-muted">Zatím nemáte žádnou zakázku.</p>}
+        {briefs?.length === 0 && <EmptyState>Zatím nemáte žádnou zakázku.</EmptyState>}
         <ul className="flex flex-col gap-3">
           {briefs?.map((b) => {
             const src = b.image_url ? urls.get(thumbPathOf(b.image_url)) : undefined;
             return (
-              <li key={b.id} className="flex gap-3 rounded-2xl border border-muted/40 p-3">
+              <li key={b.id} className="flex gap-3 rounded-2xl bg-surface p-3">
                 {/* eslint-disable-next-line @next/next/no-img-element -- signed Storage URLs, already resized in the browser */}
                 {src && <img src={src} alt="" className="size-20 shrink-0 rounded-xl object-cover" />}
-                <div className="min-w-0 flex-1">
+                <div className="flex min-w-0 flex-1 flex-col items-start gap-1">
                   <p className="font-bold">{formatCzk(b.budget)} · do {formatDate(b.deadline)}</p>
-                  <p className="line-clamp-2 break-words text-sm">{b.description}</p>
-                  <p className="text-sm font-semibold text-primary">{b.status === "open" ? "Otevřená" : "Obsazená"}</p>
+                  <p className="line-clamp-2 break-words text-sm text-muted">{b.description}</p>
+                  {b.status === "open" ? (
+                    <span className={`${pillClass} bg-primary/15 text-primary`}>Otevřená</span>
+                  ) : (
+                    <span className={`${pillClass} bg-secondary text-muted`}>Obsazená</span>
+                  )}
                 </div>
               </li>
             );

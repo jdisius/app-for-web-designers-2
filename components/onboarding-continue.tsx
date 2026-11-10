@@ -20,7 +20,7 @@ export function OnboardingContinue({ count }: { count: number }) {
           type="checkbox"
           checked={confirmed}
           onChange={(e) => setConfirmed(e.target.checked)}
-          className="mt-0.5 size-5 shrink-0"
+          className="mt-0.5 size-5 shrink-0 accent-primary"
         />
         Potvrzuji, že jde o moje vlastní dílo
       </label>

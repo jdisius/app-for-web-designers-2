@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useTransform } from "motion/react";
 import { swipeBrief } from "@/app/actions/swipes";
+import { EmptyState } from "@/components/empty-state";
+import { buttonClass, secondaryButtonClass } from "@/components/field";
 import { formatCzk, formatDate } from "@/lib/format";
 
 export type SwipeBrief = {
@@ -34,14 +36,14 @@ function Card({ brief, dir, onDecide }: { brief: SwipeBrief; dir: number; onDeci
       custom={dir}
       variants={{ exit: (d: number) => ({ x: d * 400, opacity: 0, transition: { duration: 0.25 } }) }}
       exit="exit"
-      className="relative flex cursor-grab flex-col overflow-hidden rounded-3xl border border-muted/40 bg-background shadow-lg active:cursor-grabbing"
+      className="relative flex cursor-grab flex-col overflow-hidden rounded-3xl bg-surface shadow-lg active:cursor-grabbing"
     >
       {brief.imageUrl && (
         // eslint-disable-next-line @next/next/no-img-element -- signed Storage URL, already resized in the browser
         <img src={brief.imageUrl} alt="" draggable={false} className="aspect-[4/3] w-full object-cover" />
       )}
-      <div className="flex flex-col gap-2 p-4">
-        <p className="text-xl font-bold">{formatCzk(brief.budget)}</p>
+      <div className="flex flex-col gap-2 p-5">
+        <p className="text-3xl font-bold text-primary">{formatCzk(brief.budget)}</p>
         <p className="text-sm font-semibold text-muted">Termín do {formatDate(brief.deadline)}</p>
         <p className={`break-words ${brief.imageUrl ? "line-clamp-4" : "text-lg"}`}>{brief.description}</p>
       </div>
@@ -53,7 +55,7 @@ function Card({ brief, dir, onDecide }: { brief: SwipeBrief; dir: number; onDeci
       </motion.span>
       <motion.span
         style={{ opacity: skipOpacity }}
-        className="pointer-events-none absolute right-4 top-4 rounded-full bg-secondary px-3 py-1 text-sm font-bold text-background"
+        className="pointer-events-none absolute right-4 top-4 rounded-full bg-secondary px-3 py-1 text-sm font-bold text-foreground"
       >
         Přeskočit
       </motion.span>
@@ -85,7 +87,7 @@ export function SwipeDeck({ briefs }: { briefs: SwipeBrief[] }) {
   }
 
   if (!top) {
-    return <p className="px-4 py-8 text-center text-muted">Žádné další zakázky. Zkuste to později.</p>;
+    return <EmptyState>Žádné další zakázky. Zkuste to později.</EmptyState>;
   }
 
   return (
@@ -101,7 +103,7 @@ export function SwipeDeck({ briefs }: { briefs: SwipeBrief[] }) {
           type="button"
           disabled={busy}
           onClick={() => decide(false)}
-          className="flex-1 rounded-full bg-secondary px-6 py-3 text-base font-bold text-background disabled:opacity-60"
+          className={`flex-1 ${secondaryButtonClass}`}
         >
           Přeskočit
         </button>
@@ -109,7 +111,7 @@ export function SwipeDeck({ briefs }: { briefs: SwipeBrief[] }) {
           type="button"
           disabled={busy}
           onClick={() => decide(true)}
-          className="flex-1 rounded-full bg-primary px-6 py-3 text-base font-bold text-background disabled:opacity-60"
+          className={`flex-1 ${buttonClass}`}
         >
           Mám zájem
         </button>

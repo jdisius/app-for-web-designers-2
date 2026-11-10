@@ -77,3 +77,8 @@ How to use this file:
 - [x] 13. Final pass and deploy (2026-10-31: all pages checked by the developer, works; Vercel already connected to Supabase by the developer; code pushed to GitHub; labels left as they are)
   - 375px check of every page; list all Czech strings added along the way for review.
   - Vercel environment variables (set by the developer); `npx supabase db push` and deploy only after approval.
+
+- [x] 14. Design refresh (2026-11-10: on branch `design-refresh`; lint, tsc, build and unit tests pass; only `/`, `/login`, `/signup` looked at in a browser, logged-in pages and the 375px check still to do by hand)
+  - Dark theme tokens in `app/globals.css` (violet primary, amber accent, new `surface` token), Outfit font, styling only: no data, policy or logic changes.
+  - Shared classes in `components/field.tsx`; new `components/avatar.tsx` and `components/empty-state.tsx`; bottom nav with icons.
+  - New or changed Czech strings: "Designéři a zakázky na jedno přejetí", "Zadejte zakázku, nebo si vybírejte ty, které vás baví.", nav "Zakázky" (was "Swipe") and "Nová zakázka" (was "+ Nová zakázka"), profile role labels "Designér" / "Zákazník".
